@@ -16,7 +16,7 @@ const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 root.render(
   // <StrictMode>
-  <BrowserRouter>
+  <BrowserRouter basename="/quest-to-learn">
     <Routes>
       <Route path="/" element={<App />}>
         <Route index element={<AboutMe />}></Route>

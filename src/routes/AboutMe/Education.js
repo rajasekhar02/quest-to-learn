@@ -1,5 +1,5 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React from "react";
+import { useParams } from "react-router-dom";
 
 export default function Education() {
   const { string_slug } = useParams();
@@ -8,7 +8,7 @@ export default function Education() {
       <p className="heading fw-bold fs-4 border-bottom">Education</p>
       <div className="list-group">
         <a
-          href="/about-me/study-in-mst"
+          href="./about-me/study-in-mst"
           role="button"
           data-toggle="collapse-mst-study"
           className="list-group-item list-group-item-action"
@@ -25,7 +25,7 @@ export default function Education() {
         </a>
         <div
           className={`collapse ${
-            string_slug === 'study-in-mst' && 'show'
+            string_slug === "study-in-mst" && "show"
           }  collapse-mst-study`}
         >
           <div className="card card-body">

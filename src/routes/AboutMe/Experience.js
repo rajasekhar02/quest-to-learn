@@ -8,7 +8,7 @@ export default function Experience() {
       <p className="heading fw-bold fs-4 border-bottom">Experience</p>
       <div className="list-group">
         <a
-          href="/about-me/software-dev-in-eruvaka"
+          href="../about-me/software-dev-in-eruvaka"
           className="list-group-item list-group-item-action"
           aria-current="true"
         >
@@ -157,7 +157,7 @@ export default function Experience() {
           </div>
         </div>
         <a
-          href="/about-me/ast-in-tcs"
+          href="../about-me/ast-in-tcs"
           className="list-group-item list-group-item-action"
         >
           <div className="d-flex w-100 justify-content-between">
