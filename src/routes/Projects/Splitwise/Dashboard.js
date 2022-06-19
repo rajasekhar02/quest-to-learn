@@ -39,48 +39,7 @@ const callGetCurrentUserGroups = async function (splitwise) {
     splitwise.setGroups(localStore.getData(CONSTANTS.LOCAL_STORE_KEYS.groups));
   }
 };
-const callGetExpensesWithFriendId = async function (
-  searchParams,
-  setExpenses,
-  splitwiseContext
-) {
-  let response;
-  const dateAfter = get(
-    splitwiseContext,
-    `groups.${searchParams.get("groupId")}.created_at`
-  );
-  console.log(dateAfter);
-  if (!dateAfter) return;
-  response = await getExpensesWithFriendId(searchParams.get("memberId"), {
-    limit: 0,
-    offset: 0,
-    dated_after: dateAfter
-  });
-  setExpenses(
-    response.data.expenses.map((eachExpense) =>
-      [
-        "description",
-        "payment",
-        "users",
-        "cost",
-        "comments_count",
-        "repayments",
-        "created_at",
-        "created_by"
-      ].reduce((acc, property) => {
-        if (property === "created_at") {
-          acc[property] = formatDate(
-            new Date(eachExpense[property]),
-            "dd-MMM-yyyy"
-          );
-        } else {
-          acc[property] = eachExpense[property];
-        }
-        return acc;
-      }, {})
-    )
-  );
-};
+
 const profileForm = function (authContext) {
   let profileForm = <div>Profile</div>;
   if (authContext.user) {
@@ -151,7 +110,8 @@ const expensesTable = function (
     "comments_count",
     "created_by"
   ];
-  const selectedMemberId = params.get("memberId") || authContext.user.id;
+
+  const selectedMemberId = params.get("memberId") || authContext.user?.id;
 
   return (
     <div className="col">
@@ -285,10 +245,7 @@ export default function Dashboard() {
       await callGetCurrentUserGroups(splitwise);
     })();
   }, []);
-  useEffect(() => {
-    (async () =>
-      await callGetExpensesWithFriendId(params, setExpenses, splitwise))();
-  }, [splitwise.groups]);
+
   useEffect(() => {
     splitwise.setIndexOnUsersInGroups(
       splitwise.groups?.reduce((acc, eachGroup) => {

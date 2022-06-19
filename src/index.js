@@ -12,6 +12,7 @@ import RedirectHandler from "./routes/Projects/Splitwise/RedirectHandler";
 import AuthHandler from "./routes/Projects/AuthHandler";
 import { AuthProvider } from "./routes/Projects/AuthContext";
 import Dashboard from "./routes/Projects/Splitwise/Dashboard";
+import ExepensesTable from "routes/Projects/Splitwise/routes/ExpensesTable";
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 root.render(
@@ -39,6 +40,14 @@ root.render(
               element={
                 <AuthHandler>
                   <Dashboard />
+                </AuthHandler>
+              }
+            ></Route>
+            <Route
+              path="expenses-table"
+              element={
+                <AuthHandler>
+                  <ExepensesTable />
                 </AuthHandler>
               }
             ></Route>
