@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../AuthContext";
+import { useProjectContext } from "../ProjectsContext";
 export default function RedirectHandler() {
   const [searchParams, setSearchParams] = useSearchParams();
   let [loading, setLoading] = useState(true);
+  let projectsContext = useProjectContext();
   // const loading = true;
   let navigate = useNavigate();
   let location = useLocation();
@@ -15,9 +17,10 @@ export default function RedirectHandler() {
       navigate("/projects", { replace: true });
     }
     try {
-      await auth.signIn(code);
-      navigate(from, { replace: true });
+      projectsContext.setStateForAuth({ code });
+      await auth.signIn();
       setLoading(false);
+      navigate(from, { replace: true });
     } catch (err) {
       console.error(err);
       setLoading(false);

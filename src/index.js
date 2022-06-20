@@ -1,21 +1,20 @@
-import React, { StrictMode } from "react";
+import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import App from "./App";
 import AboutMe from "./routes/AboutMe/index.js";
 import LearningReferences from "./routes/LearningReferences";
 import Projects from "./routes/Projects/index.js";
 import ProjectGrids from "./routes/Projects/ProjectGrids";
 import Splitwise from "./routes/Projects/Splitwise";
-import RedirectHandler from "./routes/Projects/Splitwise/RedirectHandler";
-import AuthHandler from "./routes/Projects/AuthHandler";
-import { AuthProvider } from "./routes/Projects/AuthContext";
-import Dashboard from "./routes/Projects/Splitwise/Dashboard";
+import { ProjectsProvider } from "routes/Projects/ProjectsContext";
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
+const appNameToPage = {
+  splitwise: <Splitwise />
+};
+
 root.render(
-  // <StrictMode>
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
@@ -26,23 +25,13 @@ root.render(
         <Route
           path="projects"
           element={
-            <AuthProvider>
+            <ProjectsProvider>
               <Projects />
-            </AuthProvider>
+            </ProjectsProvider>
           }
         >
           <Route index element={<ProjectGrids />}></Route>
-          <Route path="splitwise" element={<Splitwise />}>
-            <Route path="redirect" element={<RedirectHandler />}></Route>
-            <Route
-              path="dashboard"
-              element={
-                <AuthHandler>
-                  <Dashboard />
-                </AuthHandler>
-              }
-            ></Route>
-          </Route>
+          <Route path="splitwise/*" element={<Splitwise />}></Route>
         </Route>
         <Route
           path="learning-references"
@@ -51,5 +40,4 @@ root.render(
       </Route>
     </Routes>
   </BrowserRouter>
-  // </StrictMode>
 );

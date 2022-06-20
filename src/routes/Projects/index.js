@@ -1,12 +1,14 @@
 import React from "react";
 import { Outlet } from "react-router";
-
+import { AuthProvider } from "./AuthContext";
 export default function Projects() {
   return (
     <section className="p-3">
-      <main>
-        <Outlet></Outlet>
-      </main>
+      <AuthProvider>
+        <main>
+          <Outlet></Outlet>
+        </main>
+      </AuthProvider>
     </section>
   );
 }

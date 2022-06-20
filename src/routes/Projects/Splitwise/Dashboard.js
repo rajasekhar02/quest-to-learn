@@ -11,29 +11,11 @@ import {
 } from "./services";
 import { useSplitwise } from "./SplitwiseContext";
 import { format as formatDate, parse as parseDate } from "date-fns";
-const callGetCurrentUser = async function (auth) {
-  let response;
-  if (!localStore.getData(CONSTANTS.LOCAL_STORE_KEYS.user)) {
-    response = await getCurrentUser();
-    localStore.setData(CONSTANTS.LOCAL_STORE_KEYS.user, response.data.user);
-    auth.setUser(localStore.getData(CONSTANTS.LOCAL_STORE_KEYS.user));
-  } else {
-    auth.setUser(localStore.getData(CONSTANTS.LOCAL_STORE_KEYS.user));
-  }
-};
 const callGetCurrentUserGroups = async function (splitwise) {
   let response;
   if (!localStore.getData(CONSTANTS.LOCAL_STORE_KEYS.groups)) {
     response = await getCurrentUserGroups();
     localStore.setData(CONSTANTS.LOCAL_STORE_KEYS.groups, response.data.groups);
-    // splitwise.setIndexOnUsersInGroups(
-    //   splitwise.groups.reduce((acc, eachGroup) => {
-    //     return eachGroup.members.reduce((accUsers, user) => {
-    //       accUsers[user.id] = user;
-    //       return accUsers;
-    //     }, acc);
-    //   }, {})
-    // );
     splitwise.setGroups(localStore.getData(CONSTANTS.LOCAL_STORE_KEYS.groups));
   } else {
     splitwise.setGroups(localStore.getData(CONSTANTS.LOCAL_STORE_KEYS.groups));
@@ -49,7 +31,6 @@ const callGetExpensesWithFriendId = async function (
     splitwiseContext,
     `groups.${searchParams.get("groupId")}.created_at`
   );
-  console.log(dateAfter);
   if (!dateAfter) return;
   response = await getExpensesWithFriendId(searchParams.get("memberId"), {
     limit: 0,
@@ -151,7 +132,7 @@ const expensesTable = function (
     "comments_count",
     "created_by"
   ];
-  const selectedMemberId = params.get("memberId") || authContext.user.id;
+  const selectedMemberId = params.get("memberId") || authContext.user?.id;
 
   return (
     <div className="col">
@@ -278,10 +259,8 @@ export default function Dashboard() {
   const splitwise = useSplitwise();
   const [params, setParams] = useSearchParams();
   const [expenses, setExpenses] = useState([]);
-
   useEffect(() => {
     (async () => {
-      await callGetCurrentUser(auth);
       await callGetCurrentUserGroups(splitwise);
     })();
   }, []);
@@ -300,10 +279,12 @@ export default function Dashboard() {
     );
   }, [splitwise.groups]);
   return (
+    // <AuthHandler>
     <div className="d-flex">
       {profileForm(auth)}
       {groupsCollapseItem(splitwise, params)}
       {expensesTable(expenses, params, auth, splitwise)}
+      {/* </AuthHandler> */}
     </div>
   );
 }
