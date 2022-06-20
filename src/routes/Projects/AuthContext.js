@@ -36,9 +36,9 @@ export const AuthProvider = function ({ children }) {
     return true;
   };
 
-  let signOut = () => {
-    signOutsMapper[currentActiveApp]();
-    setIsAuthenticated(authStatusMapper[currentActiveApp]());
+  let signOut = (appName) => {
+    signOutsMapper[appName]();
+    setIsAuthenticated(authStatusMapper[appName]());
   };
 
   let fetchCurrentUser = async () => {

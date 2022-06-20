@@ -9,7 +9,7 @@ function ActionButton() {
   const auth = useAuth();
   const navigate = useNavigate();
   function handleSignOut() {
-    auth.signOut();
+    auth.signOut("splitwise");
     navigate("/projects", { replace: true });
   }
   return (
