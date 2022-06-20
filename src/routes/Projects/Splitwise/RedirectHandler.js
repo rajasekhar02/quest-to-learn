@@ -12,12 +12,8 @@ export default function RedirectHandler() {
   let auth = useAuth();
   let from = location.state?.from?.pathname || "/projects/splitwise/dashboard";
   const getAccessToken = async () => {
-    const code = searchParams.get("code") || "invalid";
-    if (code === "invalid") {
-      navigate("/projects", { replace: true });
-    }
     try {
-      projectsContext.setStateForAuth({ code });
+      if (!projectsContext.currentActiveProject) return;
       await auth.signIn();
       setLoading(false);
       navigate(from, { replace: true });
@@ -27,8 +23,15 @@ export default function RedirectHandler() {
     }
   };
   React.useEffect(() => {
-    getAccessToken();
+    const code = searchParams.get("code") || "invalid";
+    if (code === "invalid") {
+      navigate("/projects", { replace: true });
+    }
+    projectsContext.setStateForAuth({ code });
   }, []);
+  React.useEffect(() => {
+    (async () => await getAccessToken())();
+  }, [projectsContext.currentActiveProject]);
   return (
     <div>Redirect Handler {loading ? "loading ..." : "fetch access token"}</div>
   );

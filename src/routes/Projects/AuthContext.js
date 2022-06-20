@@ -31,7 +31,7 @@ export const AuthProvider = function ({ children }) {
     SplitwiseAuth.authStatus()
   );
   let signIn = async () => {
-    await signsMapper[currentActiveApp]();
+    await signsMapper[currentActiveApp](projectsContext);
     setIsAuthenticated(authStatusMapper[currentActiveApp]());
     return true;
   };
