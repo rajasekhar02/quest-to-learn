@@ -36,16 +36,21 @@ function ActionButton() {
     </>
   );
 }
+const SplitWiseCard = function () {
+  return (
+    <div className="card-body">
+      <h5 className="card-title">Splitwise Dashboard</h5>
+      <p className="card-text">Dashboard on Splitwise Expenses</p>
+      <ActionButton appName={"splitwise"} />
+    </div>
+  );
+};
 export default function ProjectGrids() {
   const auth = useAuth();
   return (
     <div className="card" style={{ width: "18rem" }} key={auth.isAuthenticated}>
       {/* <img src="..." className="card-img-top" alt="..."> */}
-      <div className="card-body">
-        <h5 className="card-title">Splitwise Dashboard</h5>
-        <p className="card-text">Dashboard on Splitwise Expenses</p>
-        <ActionButton />
-      </div>
+      <SplitWiseCard></SplitWiseCard>
     </div>
   );
 }

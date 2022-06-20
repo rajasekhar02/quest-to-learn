@@ -9,7 +9,6 @@ import { useProjectContext } from "routes/Projects/ProjectsContext";
 export default function Splitwise() {
   const projectsContext = useProjectContext();
   useEffect(() => {
-    console.log("1");
     projectsContext.setCurrentActiveProject("splitwise");
   }, []);
   return (
@@ -19,7 +18,7 @@ export default function Splitwise() {
         <Route
           path="dashboard"
           element={
-            <AuthHandler>
+            <AuthHandler appName="splitwise">
               <Dashboard />
             </AuthHandler>
           }
