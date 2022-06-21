@@ -1,17 +1,18 @@
 import React from "react";
 import SplitwiseAuth from "./Splitwise/auth";
-import { useProjectContext } from "./ProjectsContext";
 let AuthContext = React.createContext({
   isAuthenticated: false,
   signIn: undefined,
   signOut: undefined,
   fetchCurrentUser: undefined,
+  stateForAuth: undefined,
+  setStateForAuth: undefined,
   user: undefined,
   setUser: undefined
 });
 let signsMapper = {
   splitwise: (projectsContext) => {
-    return SplitwiseAuth.signIn(projectsContext.stateForAuth.code);
+    return SplitwiseAuth.signIn(projectsContext.stateForAuth.splitwise.code);
   }
 };
 let signOutsMapper = {
@@ -24,25 +25,24 @@ let fetchUserMapper = {
   splitwise: SplitwiseAuth.fetchCurrentUser
 };
 export const AuthProvider = function ({ children }) {
-  let projectsContext = useProjectContext();
-  const currentActiveApp = projectsContext.currentActiveProject;
   let [user, setUser] = React.useState(undefined);
+  let [stateForAuth, setStateForAuth] = React.useState(undefined);
   let [isAuthenticated, setIsAuthenticated] = React.useState(
     SplitwiseAuth.authStatus()
   );
-  let signIn = async () => {
-    await signsMapper[currentActiveApp](projectsContext);
-    setIsAuthenticated(authStatusMapper[currentActiveApp]());
+  let signIn = async (appName) => {
+    await signsMapper[appName]({ stateForAuth });
+    setIsAuthenticated(authStatusMapper[appName]());
     return true;
   };
 
-  let signOut = () => {
-    signOutsMapper[currentActiveApp]();
-    setIsAuthenticated(authStatusMapper[currentActiveApp]());
+  let signOut = (appName) => {
+    signOutsMapper[appName]();
+    setIsAuthenticated(authStatusMapper[appName]());
   };
 
-  let fetchCurrentUser = async () => {
-    await fetchUserMapper[currentActiveApp](setUser);
+  let fetchCurrentUser = async (appName) => {
+    await fetchUserMapper[appName](setUser);
   };
 
   let value = {
@@ -50,6 +50,8 @@ export const AuthProvider = function ({ children }) {
     signIn,
     signOut,
     fetchCurrentUser,
+    stateForAuth,
+    setStateForAuth,
     setUser,
     user
   };

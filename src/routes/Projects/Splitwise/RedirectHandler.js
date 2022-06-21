@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
+import {
+  useSearchParams,
+  useNavigate,
+  useLocation,
+  useOutletContext
+} from "react-router-dom";
 import { useAuth } from "../AuthContext";
-import { useProjectContext } from "../ProjectsContext";
 export default function RedirectHandler() {
   const [searchParams, setSearchParams] = useSearchParams();
   let [loading, setLoading] = useState(true);
-  let projectsContext = useProjectContext();
+  let projectsContext = useOutletContext();
   // const loading = true;
   let navigate = useNavigate();
   let location = useLocation();
@@ -13,8 +17,7 @@ export default function RedirectHandler() {
   let from = location.state?.from?.pathname || "/projects/splitwise/dashboard";
   const getAccessToken = async () => {
     try {
-      if (!projectsContext.currentActiveProject) return;
-      await auth.signIn();
+      await auth.signIn(projectsContext.appName);
       setLoading(false);
       navigate(from, { replace: true });
     } catch (err) {
@@ -27,11 +30,12 @@ export default function RedirectHandler() {
     if (code === "invalid") {
       navigate("/projects", { replace: true });
     }
-    projectsContext.setStateForAuth({ code });
+    auth.setStateForAuth({ splitwise: { code } });
   }, []);
   React.useEffect(() => {
+    if (!projectsContext.appName || !auth.stateForAuth) return;
     (async () => await getAccessToken())();
-  }, [projectsContext.currentActiveProject]);
+  }, [projectsContext.appName, auth.stateForAuth]);
   return (
     <div>Redirect Handler {loading ? "loading ..." : "fetch access token"}</div>
   );
