@@ -26,7 +26,8 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "lint": "eslint src --fix"
+    "lint": "eslint --fix --ext .js src",
+    "prepare":"husky install"
   },
   "devDependencies": {
     "eslint": "^8.18.0",
@@ -52,17 +53,15 @@
       "last 1 safari version"
     ]
   },
-  "lint-staged": {
-    "src/**/*.{ts,tsx}": [
-      "eslint --ext .jsx --ext .js ./src --fix"
-    ],
-    "./src/**": [
-      "prettier --write ."
-    ]
-  },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "echo \"pushing date is \" && date \"+%H:%M:%S %d/%m/%y\" && echo "
     }
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js,scss,css,md}": "prettier --write"
   }
+
 }
