@@ -1,33 +1,33 @@
-import React from "react";
-import SideBar from "./SideBar";
-import Education from "./Education";
-import Experience from "./Experience";
-import "./index.css";
-import { AboutMeProvider } from "./AboutMeContext";
-import Joyride from "react-joyride";
+import React from 'react';
+import Joyride from 'react-joyride';
+import SideBar from './SideBar';
+import Education from './Education';
+import Experience from './Experience';
+import './index.css';
+import { AboutMeProvider } from './AboutMeContext';
 
 export default function AboutMe() {
-  const [productTour, setProductTour] = React.useState({
+  const [productTour] = React.useState({
     steps: [
       {
-        target: ".profile-picture-holder",
-        content: "Here I am Raja Sekhar Pothina",
-        placement: "top",
+        target: '.profile-picture-holder',
+        content: 'Here I am Raja Sekhar Pothina',
+        placement: 'top',
       },
       {
-        target: ".contact-info-container",
-        content: "Here are the ways you can contact me",
-        placement: "top",
+        target: '.contact-info-container',
+        content: 'Here are the ways you can contact me',
+        placement: 'top',
       },
       {
-        target: ".education",
-        content: "Here are my education details",
-        placement: "top",
+        target: '.education',
+        content: 'Here are my education details',
+        placement: 'top',
       },
       {
-        target: ".experience",
-        content: "Here are my professional experience details",
-        placement: "top",
+        target: '.experience',
+        content: 'Here are my professional experience details',
+        placement: 'top',
       },
     ],
   });
@@ -38,14 +38,14 @@ export default function AboutMe() {
           steps={productTour.steps}
           styles={{
             options: {
-              primaryColor: "var(--brand-color)",
-              textColor: "var(--brand-color)",
+              primaryColor: 'var(--brand-color)',
+              textColor: 'var(--brand-color)',
               zIndex: 1100,
             },
           }}
           continuous
           run
-        ></Joyride>
+        />
         <SideBar />
         <main className="content p-3 flex-grow-1">
           {/* <section className="summary mt-3">

@@ -1,7 +1,8 @@
-import React from "react";
-import SplitwiseAuth from "./Splitwise/auth";
-import { useProjectContext } from "./ProjectsContext";
-let AuthContext = React.createContext({
+import React, { useMemo } from 'react';
+import SplitwiseAuth from './Splitwise/auth';
+import { useProjectContext } from './ProjectsContext';
+
+const AuthContext = React.createContext({
   isAuthenticated: false,
   signIn: undefined,
   signOut: undefined,
@@ -9,50 +10,46 @@ let AuthContext = React.createContext({
   user: undefined,
   setUser: undefined,
 });
-let signsMapper = {
-  splitwise: (projectsContext) => {
-    return SplitwiseAuth.signIn(projectsContext.stateForAuth.code);
-  },
+const signsMapper = {
+  splitwise: (projectsContext) => SplitwiseAuth.signIn(projectsContext.stateForAuth.code),
 };
-let signOutsMapper = {
+const signOutsMapper = {
   splitwise: SplitwiseAuth.signOut,
 };
-let authStatusMapper = {
+const authStatusMapper = {
   splitwise: SplitwiseAuth.authStatus,
 };
-let fetchUserMapper = {
+const fetchUserMapper = {
   splitwise: SplitwiseAuth.fetchCurrentUser,
 };
 export const AuthProvider = function ({ children }) {
-  let projectsContext = useProjectContext();
+  const projectsContext = useProjectContext();
   const currentActiveApp = projectsContext.currentActiveProject;
-  let [user, setUser] = React.useState(undefined);
-  let [isAuthenticated, setIsAuthenticated] = React.useState(
-    SplitwiseAuth.authStatus()
-  );
-  let signIn = async () => {
+  const [user, setUser] = React.useState(undefined);
+  const [isAuthenticated, setIsAuthenticated] = React.useState(SplitwiseAuth.authStatus());
+  const signIn = async () => {
     await signsMapper[currentActiveApp](projectsContext);
     setIsAuthenticated(authStatusMapper[currentActiveApp]());
     return true;
   };
 
-  let signOut = (appName) => {
+  const signOut = (appName) => {
     signOutsMapper[appName]();
     setIsAuthenticated(authStatusMapper[appName]());
   };
 
-  let fetchCurrentUser = async () => {
+  const fetchCurrentUser = async () => {
     await fetchUserMapper[currentActiveApp](setUser);
   };
 
-  let value = {
+  const value = useMemo({
     isAuthenticated,
     signIn,
     signOut,
     fetchCurrentUser,
     setUser,
     user,
-  };
+  });
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

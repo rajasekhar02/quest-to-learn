@@ -1,5 +1,5 @@
-import { authAxios } from "./axiosConfig";
-import CONSTANTS from "./constants.json";
+import { authAxios } from './axiosConfig';
+import CONSTANTS from './constants.json';
 // authentication needed apis
 const castToPayload = function (graphqlQuery, variables = {}) {
   return {
@@ -33,25 +33,6 @@ query UserDetails($user_id:String!){
 }
 `;
 
-const contactQuery = `
-query ContactDetails($user_id: String!){
-    contact_details: contactCollection(where:{
-    user:{
-        sys:{
-        id:$user_id
-        }
-    },
-    }){
-        items {
-            email,
-            githubProfileLink,
-            linkedInProfileLink,
-            houseAddress,
-            phoneNumber
-        }
-    }
-}
-`;
 const educationDetails = `
 query EducationDetails($user_id: String!) {
   education_details: educationCollection(where: {user: {sys: {id: $user_id}}},order: [startDate_DESC]) {
@@ -64,11 +45,11 @@ query EducationDetails($user_id: String!) {
       educationSlug
       coursesEnrolledCollection{
         items {
-        	title,
+          title,
           courseDescription{
             json
           }
-      	}
+        }
       }
       specialization
     }
@@ -96,22 +77,22 @@ query ExperienceDetails($user_id: String!) {
 `;
 export const getUserDetails = async function () {
   const response = await authAxios.post(
-    "",
-    castToPayload(userQuery, { user_id: CONSTANTS.USER_ID })
+    '',
+    castToPayload(userQuery, { user_id: CONSTANTS.USER_ID }),
   );
   return response.data.data.user_details;
 };
 export const getEducationDetails = async function () {
   const response = await authAxios.post(
-    "",
-    castToPayload(educationDetails, { user_id: CONSTANTS.USER_ID })
+    '',
+    castToPayload(educationDetails, { user_id: CONSTANTS.USER_ID }),
   );
   return response.data.data.education_details.items;
 };
 export const getExperienceDetails = async function () {
   const response = await authAxios.post(
-    "",
-    castToPayload(professionalExperiences, { user_id: CONSTANTS.USER_ID })
+    '',
+    castToPayload(professionalExperiences, { user_id: CONSTANTS.USER_ID }),
   );
   return response.data.data.experience_details.items;
 };

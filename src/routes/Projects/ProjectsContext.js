@@ -1,26 +1,21 @@
-import React from "react";
+import React, { useMemo } from 'react';
 
-let ProjectsContext = React.createContext({
+const ProjectsContext = React.createContext({
   currentActiveProject: undefined,
   setCurrentActiveProject: undefined,
   stateForAuth: undefined,
   setStateForAuth: undefined,
 });
 export const ProjectsProvider = function ({ children }) {
-  let [currentActiveProject, setCurrentActiveProject] =
-    React.useState(undefined);
-  let [stateForAuth, setStateForAuth] = React.useState(undefined);
-  let value = {
+  const [currentActiveProject, setCurrentActiveProject] = React.useState(undefined);
+  const [stateForAuth, setStateForAuth] = React.useState(undefined);
+  const value = useMemo({
     currentActiveProject,
     setCurrentActiveProject,
     stateForAuth,
     setStateForAuth,
-  };
-  return (
-    <ProjectsContext.Provider value={value}>
-      {children}
-    </ProjectsContext.Provider>
-  );
+  });
+  return <ProjectsContext.Provider value={value}>{children}</ProjectsContext.Provider>;
 };
 export const useProjectContext = function () {
   return React.useContext(ProjectsContext);

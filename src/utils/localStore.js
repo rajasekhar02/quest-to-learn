@@ -1,7 +1,5 @@
 const getData = function (key) {
-  return localStorage.getItem(key) == null
-    ? undefined
-    : JSON.parse(localStorage.getItem(key));
+  return localStorage.getItem(key) == null ? undefined : JSON.parse(localStorage.getItem(key));
 };
 const setData = function (key, data) {
   localStorage.setItem(key, JSON.stringify(data));

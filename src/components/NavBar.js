@@ -1,16 +1,17 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 const navigationItems = [
-  { title: "About me", path: "about-me" },
-  { title: "Projects", path: "projects" },
-  { title: "Learning References", path: "learning-references" },
-  { title: "Download Resume", path: "resume" },
+  { title: 'About me', path: 'about-me' },
+  { title: 'Projects', path: 'projects' },
+  { title: 'Learning References', path: 'learning-references' },
+  { title: 'Download Resume', path: 'resume' },
 ];
 export default function NavBar() {
   return (
     <nav className="navbar navbar-expand-lg bg-light border-bottom sticky-top">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
+        <a className="navbar-brand" href="/">
           Quest to Learn
         </a>
         <button
@@ -22,23 +23,21 @@ export default function NavBar() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon" />
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
-            {navigationItems.map((eachItem) => {
-              return (
-                <li className="nav-item" key={eachItem.path}>
-                  <Link
-                    className="nav-link active"
-                    aria-current={eachItem.title}
-                    to={`/${eachItem.path}`}
-                  >
-                    {eachItem.title}
-                  </Link>
-                </li>
-              );
-            })}
+            {navigationItems.map((eachItem) => (
+              <li className="nav-item" key={eachItem.path}>
+                <Link
+                  className="nav-link active"
+                  aria-current={eachItem.title}
+                  to={`/${eachItem.path}`}
+                >
+                  {eachItem.title}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

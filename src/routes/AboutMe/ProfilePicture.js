@@ -1,16 +1,17 @@
-import React from "react";
-import logo from "assets/profile-picture.png"; // Tell webpack this JS file uses this image
-import { useAboutMe } from "./AboutMeContext";
-import get from "lodash.get";
+import React from 'react';
+import logo from 'assets/profile-picture.png'; // Tell webpack this JS file uses this image
+import get from 'lodash.get';
+import { useAboutMe } from './AboutMeContext';
+
 export default function ProfilePicture() {
   const aboutMeContext = useAboutMe();
   return (
     <div className="image-mask profile-picture-holder">
       {aboutMeContext.userDetails ? (
         <img
-          src={get(aboutMeContext.userDetails, "profilePictureUrl.url") || logo}
+          src={get(aboutMeContext.userDetails, 'profilePictureUrl.url') || logo}
           className="img-fluid rounded"
-          alt="Profile Picture"
+          alt="Profile"
           width="150"
         />
       ) : (
@@ -25,7 +26,7 @@ export default function ProfilePicture() {
           focusable="false"
         >
           <title>Placeholder</title>
-          <rect width="100%" height="100%" fill="#868e96"></rect>
+          <rect width="100%" height="100%" fill="#868e96" />
         </svg>
       )}
     </div>
