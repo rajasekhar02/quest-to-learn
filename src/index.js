@@ -1,7 +1,10 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AuthHandler from "routes/Projects/AuthHandler";
 import { ProjectsProvider } from "routes/Projects/ProjectsContext";
+import Dashboard from "routes/Projects/Splitwise/Dashboard";
+import RedirectHandler from "routes/Projects/Splitwise/RedirectHandler";
 import App from "./App";
 import AboutMe from "./routes/AboutMe/index";
 import LearningReferences from "./routes/LearningReferences";
@@ -28,7 +31,17 @@ root.render(
           )}
         >
           <Route index element={<ProjectGrids />} />
-          <Route path="splitwise/*" element={<Splitwise />} />
+          <Route path="splitwise" element={<Splitwise />}>
+            <Route path="redirect" element={<RedirectHandler />} />
+            <Route
+              path="dashboard"
+              element={(
+                <AuthHandler>
+                  <Dashboard />
+                </AuthHandler>
+              )}
+            />
+          </Route>
         </Route>
         <Route path="learning-references" element={<LearningReferences />} />
       </Route>
