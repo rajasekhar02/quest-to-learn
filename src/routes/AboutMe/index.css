@@ -33,7 +33,7 @@
   min-width: 0;
   width: 0;
 }
-.list-item-experience>p{
+.list-item-experience > p {
   margin-bottom: unset;
   margin-left: 5px;
 }

@@ -208,7 +208,7 @@ const renderSideNavPlaceholder = function () {
             "bi bi-phone",
             "bi bi-envelope",
             "bi bi-github",
-            "bi bi-linkedin"
+            "bi bi-linkedin",
           ].map((iconName) => {
             return (
               <li className="list-group-item" key={iconName}>

@@ -3,7 +3,7 @@ let SplitwiseContext = React.createContext({
   groups: undefined,
   setGroups: undefined,
   indexOnUsersInGroups: undefined,
-  setIndexOnUsersInGroups: undefined
+  setIndexOnUsersInGroups: undefined,
 });
 
 export const SplitwiseContextProvider = function ({ children }) {
@@ -14,7 +14,7 @@ export const SplitwiseContextProvider = function ({ children }) {
     groups,
     setGroups,
     indexOnUsersInGroups,
-    setIndexOnUsersInGroups
+    setIndexOnUsersInGroups,
   };
   return (
     <SplitwiseContext.Provider value={value}>
@@ -29,5 +29,5 @@ export const useSplitwise = function () {
 
 export default {
   SplitwiseContextProvider,
-  useSplitwise
+  useSplitwise,
 };

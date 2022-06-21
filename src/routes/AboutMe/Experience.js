@@ -18,8 +18,8 @@ const richTextToReactOptions = {
           {children}
         </li>
       );
-    }
-  }
+    },
+  },
 };
 
 const renderExperienceDetailsCollapse = function (

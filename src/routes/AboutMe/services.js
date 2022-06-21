@@ -4,7 +4,7 @@ import CONSTANTS from "./constants.json";
 const castToPayload = function (graphqlQuery, variables = {}) {
   return {
     query: graphqlQuery,
-    variables
+    variables,
   };
 };
 const userQuery = `
@@ -117,5 +117,5 @@ export const getExperienceDetails = async function () {
 };
 export default {
   getUserDetails,
-  getEducationDetails
+  getEducationDetails,
 };

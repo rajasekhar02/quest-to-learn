@@ -1,10 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 const navigationItems = [
-  { title: 'About me', path: 'about-me' },
-  { title: 'Projects', path: 'projects' },
-  { title: 'Learning References', path: 'learning-references' },
-  { title: 'Download Resume', path: 'resume' },
+  { title: "About me", path: "about-me" },
+  { title: "Projects", path: "projects" },
+  { title: "Learning References", path: "learning-references" },
+  { title: "Download Resume", path: "resume" },
 ];
 export default function NavBar() {
   return (

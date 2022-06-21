@@ -25,10 +25,14 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "lint": "eslint --fix",
+    "pretty": "prettier --write ."
   },
   "devDependencies": {
-    "react-scripts": "latest"
+    "eslint-plugin-prettier": "^4.0.0",
+    "react-scripts": "^5.0.1",
+    "eslint": "^8.18.0"
   },
   "browserslist": {
     "production": [

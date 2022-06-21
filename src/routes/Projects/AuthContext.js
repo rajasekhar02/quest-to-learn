@@ -7,21 +7,21 @@ let AuthContext = React.createContext({
   signOut: undefined,
   fetchCurrentUser: undefined,
   user: undefined,
-  setUser: undefined
+  setUser: undefined,
 });
 let signsMapper = {
   splitwise: (projectsContext) => {
     return SplitwiseAuth.signIn(projectsContext.stateForAuth.code);
-  }
+  },
 };
 let signOutsMapper = {
-  splitwise: SplitwiseAuth.signOut
+  splitwise: SplitwiseAuth.signOut,
 };
 let authStatusMapper = {
-  splitwise: SplitwiseAuth.authStatus
+  splitwise: SplitwiseAuth.authStatus,
 };
 let fetchUserMapper = {
-  splitwise: SplitwiseAuth.fetchCurrentUser
+  splitwise: SplitwiseAuth.fetchCurrentUser,
 };
 export const AuthProvider = function ({ children }) {
   let projectsContext = useProjectContext();
@@ -51,7 +51,7 @@ export const AuthProvider = function ({ children }) {
     signOut,
     fetchCurrentUser,
     setUser,
-    user
+    user,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
@@ -61,5 +61,5 @@ export const useAuth = function () {
 };
 export default {
   AuthProvider,
-  useAuth
+  useAuth,
 };

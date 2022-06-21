@@ -4,7 +4,7 @@ let ProjectsContext = React.createContext({
   currentActiveProject: undefined,
   setCurrentActiveProject: undefined,
   stateForAuth: undefined,
-  setStateForAuth: undefined
+  setStateForAuth: undefined,
 });
 export const ProjectsProvider = function ({ children }) {
   let [currentActiveProject, setCurrentActiveProject] =
@@ -14,7 +14,7 @@ export const ProjectsProvider = function ({ children }) {
     currentActiveProject,
     setCurrentActiveProject,
     stateForAuth,
-    setStateForAuth
+    setStateForAuth,
   };
   return (
     <ProjectsContext.Provider value={value}>
@@ -27,5 +27,5 @@ export const useProjectContext = function () {
 };
 export default {
   ProjectsProvider,
-  useProjectContext
+  useProjectContext,
 };

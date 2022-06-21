@@ -3,6 +3,10 @@
   "CLIENT_SECRET": "i2pJtAKc4CN2h204DD4VrDmKSSkSePJHTtgQO5GQ",
   "GRANT_TYPE": "authorization_code",
   "REDIRECT_URI": "http://localhost:3000/projects/splitwise/redirect",
-  "PROXY_URL":"http://localhost:8080",
-  "LOCAL_STORE_KEYS":{"groups":"groups","user":"user","splitwiseAuthPayload":"splitwiseAuthPayload"}
+  "PROXY_URL": "http://localhost:8080",
+  "LOCAL_STORE_KEYS": {
+    "groups": "groups",
+    "user": "user",
+    "splitwiseAuthPayload": "splitwiseAuthPayload"
+  }
 }

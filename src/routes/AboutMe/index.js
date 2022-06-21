@@ -12,24 +12,24 @@ export default function AboutMe() {
       {
         target: ".profile-picture-holder",
         content: "Here I am Raja Sekhar Pothina",
-        placement: "top"
+        placement: "top",
       },
       {
         target: ".contact-info-container",
         content: "Here are the ways you can contact me",
-        placement: "top"
+        placement: "top",
       },
       {
         target: ".education",
         content: "Here are my education details",
-        placement: "top"
+        placement: "top",
       },
       {
         target: ".experience",
         content: "Here are my professional experience details",
-        placement: "top"
-      }
-    ]
+        placement: "top",
+      },
+    ],
   });
   return (
     <section className="resume d-flex flex-wrap">
@@ -40,8 +40,8 @@ export default function AboutMe() {
             options: {
               primaryColor: "var(--brand-color)",
               textColor: "var(--brand-color)",
-              zIndex: 1100
-            }
+              zIndex: 1100,
+            },
           }}
           continuous
           run

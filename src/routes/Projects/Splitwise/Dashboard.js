@@ -7,7 +7,7 @@ import { useAuth } from "../AuthContext";
 import {
   getCurrentUser,
   getCurrentUserGroups,
-  getExpensesWithFriendId
+  getExpensesWithFriendId,
 } from "./services";
 import { useSplitwise } from "./SplitwiseContext";
 import { format as formatDate, parse as parseDate } from "date-fns";
@@ -35,7 +35,7 @@ const callGetExpensesWithFriendId = async function (
   response = await getExpensesWithFriendId(searchParams.get("memberId"), {
     limit: 0,
     offset: 0,
-    dated_after: dateAfter
+    dated_after: dateAfter,
   });
   setExpenses(
     response.data.expenses.map((eachExpense) =>
@@ -47,7 +47,7 @@ const callGetExpensesWithFriendId = async function (
         "comments_count",
         "repayments",
         "created_at",
-        "created_by"
+        "created_by",
       ].reduce((acc, property) => {
         if (property === "created_at") {
           acc[property] = formatDate(
@@ -130,7 +130,7 @@ const expensesTable = function (
     "net_balance",
     "cost",
     "comments_count",
-    "created_by"
+    "created_by",
   ];
   const selectedMemberId = params.get("memberId") || authContext.user?.id;
 
@@ -184,7 +184,7 @@ const expensesTable = function (
                   "cost",
                   "comments_count",
                   // "repayments",
-                  "created_by.first_name"
+                  "created_by.first_name",
                 ].map((eachKey, eachKeyIndex) => {
                   return (
                     <td key={`expense_key_${eachKeyIndex}`}>

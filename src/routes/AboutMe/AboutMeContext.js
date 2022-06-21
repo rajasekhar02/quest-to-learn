@@ -2,7 +2,7 @@ import React from "react";
 
 let AboutMeContext = React.createContext({
   userDetails: undefined,
-  setUserDetails: undefined
+  setUserDetails: undefined,
 });
 
 export const useAboutMe = function () {
@@ -13,7 +13,7 @@ export const AboutMeProvider = function ({ children }) {
   let [userDetails, setUserDetails] = React.useState(undefined);
   let value = {
     userDetails,
-    setUserDetails
+    setUserDetails,
   };
   return (
     <AboutMeContext.Provider value={value}>{children}</AboutMeContext.Provider>
@@ -21,5 +21,5 @@ export const AboutMeProvider = function ({ children }) {
 };
 export default {
   useAboutMe,
-  AboutMeProvider
+  AboutMeProvider,
 };

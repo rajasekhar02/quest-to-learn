@@ -20,7 +20,7 @@ const SplitwiseAuthProvider = {
         localStore.setData(SplitwiseAuthProvider.LOCAL_STORE_KEY, {
           code: code,
           accessToken: response.data.access_token,
-          tokenType: response.data.token_type
+          tokenType: response.data.token_type,
         });
       }
       return true;
@@ -42,7 +42,7 @@ const SplitwiseAuthProvider = {
     } else {
       setUser(localStore.getData(CONSTANTS.LOCAL_STORE_KEYS.user));
     }
-  }
+  },
 };
 
 export default SplitwiseAuthProvider;

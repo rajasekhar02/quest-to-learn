@@ -11,7 +11,7 @@ import { ProjectsProvider } from "routes/Projects/ProjectsContext";
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 const appNameToPage = {
-  splitwise: <Splitwise />
+  splitwise: <Splitwise />,
 };
 
 root.render(

@@ -8,7 +8,7 @@ export const getAccessToken = function (code) {
     ["client_secret", CONSTANTS.CLIENT_SECRET],
     ["grant_type", "authorization_code"],
     ["code", code],
-    ["redirect_uri", CONSTANTS.REDIRECT_URI]
+    ["redirect_uri", CONSTANTS.REDIRECT_URI],
   ].forEach(([item, value]) => {
     params.append(item, value);
   });
@@ -25,12 +25,12 @@ export const getCurrentUserGroups = function () {
 };
 export const getExpensesWithFriendId = function (friendId, params) {
   return authAxios.get("/get_expenses", {
-    params: { friend_id: friendId, ...params }
+    params: { friend_id: friendId, ...params },
   });
 };
 export default {
   getAccessToken,
   getCurrentUser,
   getCurrentUserGroups,
-  getExpensesWithFriendId
+  getExpensesWithFriendId,
 };
