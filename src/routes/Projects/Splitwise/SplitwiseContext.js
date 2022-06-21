@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo } from "react";
 
 const SplitwiseContext = React.createContext({
   groups: undefined,
@@ -15,8 +15,12 @@ export const SplitwiseContextProvider = function ({ children }) {
     setGroups,
     indexOnUsersInGroups,
     setIndexOnUsersInGroups,
-  }), []);
-  return <SplitwiseContext.Provider value={value}>{children}</SplitwiseContext.Provider>;
+  }));
+  return (
+    <SplitwiseContext.Provider value={value}>
+      {children}
+    </SplitwiseContext.Provider>
+  );
 };
 
 export const useSplitwise = function () {

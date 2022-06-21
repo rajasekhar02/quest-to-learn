@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo } from "react";
 
 const AboutMeContext = React.createContext({
   userDetails: undefined,
@@ -14,11 +14,9 @@ export const AboutMeProvider = function ({ children }) {
   const value = useMemo(() => ({
     userDetails,
     setUserDetails,
-  }), []);
+  }));
   return (
-    <AboutMeContext.Provider value={value}>
-      {children}
-    </AboutMeContext.Provider>
+    <AboutMeContext.Provider value={value}>{children}</AboutMeContext.Provider>
   );
 };
 export default {

@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
-import SplitwiseAuth from './Splitwise/auth';
-import { useProjectContext } from './ProjectsContext';
+import React, { useMemo } from "react";
+import SplitwiseAuth from "./Splitwise/auth";
+import { useProjectContext } from "./ProjectsContext";
 
 const AuthContext = React.createContext({
   isAuthenticated: false,
@@ -26,7 +26,9 @@ export const AuthProvider = function ({ children }) {
   const projectsContext = useProjectContext();
   const currentActiveApp = projectsContext.currentActiveProject;
   const [user, setUser] = React.useState(undefined);
-  const [isAuthenticated, setIsAuthenticated] = React.useState(SplitwiseAuth.authStatus());
+  const [isAuthenticated, setIsAuthenticated] = React.useState(
+    SplitwiseAuth.authStatus()
+  );
   const signIn = async () => {
     await signsMapper[currentActiveApp](projectsContext);
     setIsAuthenticated(authStatusMapper[currentActiveApp]());
@@ -49,7 +51,7 @@ export const AuthProvider = function ({ children }) {
     fetchCurrentUser,
     setUser,
     user,
-  }), []);
+  }));
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
