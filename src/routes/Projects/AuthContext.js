@@ -42,14 +42,14 @@ export const AuthProvider = function ({ children }) {
     await fetchUserMapper[currentActiveApp](setUser);
   };
 
-  const value = useMemo({
+  const value = useMemo(() => ({
     isAuthenticated,
     signIn,
     signOut,
     fetchCurrentUser,
     setUser,
     user,
-  });
+  }), []);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

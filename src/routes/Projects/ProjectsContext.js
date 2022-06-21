@@ -9,12 +9,12 @@ const ProjectsContext = React.createContext({
 export const ProjectsProvider = function ({ children }) {
   const [currentActiveProject, setCurrentActiveProject] = React.useState(undefined);
   const [stateForAuth, setStateForAuth] = React.useState(undefined);
-  const value = useMemo({
+  const value = useMemo(() => ({
     currentActiveProject,
     setCurrentActiveProject,
     stateForAuth,
     setStateForAuth,
-  });
+  }), []);
   return <ProjectsContext.Provider value={value}>{children}</ProjectsContext.Provider>;
 };
 export const useProjectContext = function () {
