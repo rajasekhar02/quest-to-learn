@@ -25,10 +25,21 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "lint": "eslint --fix --ext .js src",
+    "prepare":"husky install"
   },
   "devDependencies": {
-    "react-scripts": "latest"
+    "eslint": "^8.18.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.30.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.2",
+    "react-scripts": "^5.0.1"
   },
   "browserslist": {
     "production": [
@@ -41,5 +52,16 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "echo \"pushing date is \" && date \"+%H:%M:%S %d/%m/%y\" && echo "
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js,scss,css,md}": "prettier --write"
   }
+
 }

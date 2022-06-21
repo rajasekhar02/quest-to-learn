@@ -11,12 +11,12 @@ import { Tooltip } from "bootstrap";
 export default function SideNav() {
   const sideNavRef = React.useRef(null);
   useEffect(() => {
-    var tooltipTriggerList = [].slice.call(
+    const tooltipTriggerList = [].slice.call(
       sideNavRef.current.querySelectorAll(`[data-bs-toggle="tooltip"]`)
     );
-    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
-      new Tooltip(tooltipTriggerEl);
-    });
+    tooltipTriggerList.forEach(
+      (tooltipTriggerEl) => new Tooltip(tooltipTriggerEl)
+    );
   }, []);
   return (
     <div
@@ -36,14 +36,15 @@ export default function SideNav() {
           width="24px"
           height="24px"
           className="mb-auto"
+          alt="Splitwise"
           src="https://avatars.githubusercontent.com/u/1584483?s=24&v=4"
-        ></img>
+        />
         <span className="visually-hidden">Icon-only</span>
       </a>
       <ul className="nav nav-pills nav-flush flex-column mb-auto text-center">
         <li className="nav-item">
           <a
-            href="#"
+            href="/"
             className="nav-link active py-3 border-bottom"
             aria-current="page"
             title="Home"
@@ -56,7 +57,7 @@ export default function SideNav() {
         </li>
         <li>
           <a
-            href="#"
+            href="/"
             className="nav-link py-3 border-bottom"
             title="Dashboard"
             data-bs-toggle="tooltip"
@@ -80,14 +81,14 @@ export default function SideNav() {
         </li>
         <li>
           <a
-            href="#"
+            href="/"
             className="nav-link py-3 border-bottom"
             title="Products"
             data-bs-toggle="tooltip"
             data-bs-placement="right"
             data-bs-original-title="Products"
           >
-            <i className="bi bi-grid fs-4"></i>
+            <i className="bi bi-grid fs-4" />
           </a>
         </li>
       </ul>

@@ -1,39 +1,40 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router";
 import CONSTANTS from "./Splitwise/constants.json";
 import { useAuth } from "./AuthContext";
-import { useNavigate } from "react-router";
-const client_id = CONSTANTS.CLIENT_ID;
+
+const clientId = CONSTANTS.CLIENT_ID;
 
 function ActionButton() {
   const auth = useAuth();
   const navigate = useNavigate();
   function handleSignOut() {
-    auth.signOut();
+    auth.signOut("splitwise");
     navigate("/projects", { replace: true });
   }
-  return (
+  return auth.isAuthenticated ? (
     <>
-      {auth.isAuthenticated ? (
-        <>
-          <a className="btn btn-primary" href="/projects/splitwise/dashboard">
-            Dashboard
-          </a>
-          <button className="btn btn-primary mx-2" onClick={handleSignOut}>
-            Sign Out
-          </button>
-        </>
-      ) : (
-        <a
-          href={`https://secure.splitwise.com/oauth/authorize?redirect_uri=${
-            CONSTANTS.REDIRECT_URI
-          }&response_type=code&state=${uuidv4()}&client_id=${client_id}`}
-          className="btn btn-primary"
-        >
-          Login Through Splitwise
-        </a>
-      )}
+      <a className="btn btn-primary" href="/projects/splitwise/dashboard">
+        Dashboard
+      </a>
+      <button
+        type="button"
+        className="btn btn-primary mx-2"
+        onClick={handleSignOut}
+      >
+        Sign Out
+      </button>
     </>
+  ) : (
+    <a
+      href={`https://secure.splitwise.com/oauth/authorize?redirect_uri=${
+        CONSTANTS.REDIRECT_URI
+      }&response_type=code&state=${uuidv4()}&client_id=${clientId}`}
+      className="btn btn-primary"
+    >
+      Login Through Splitwise
+    </a>
   );
 }
 export default function ProjectGrids() {

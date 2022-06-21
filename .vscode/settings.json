@@ -1,0 +1,17 @@
+{
+  "eslint.format.enable": true,
+  "eslint.probe": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "vue",
+    "markdown",
+    "react"
+  ],
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}

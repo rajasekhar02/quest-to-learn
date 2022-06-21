@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useMemo } from "react";
 
-let AboutMeContext = React.createContext({
+const AboutMeContext = React.createContext({
   userDetails: undefined,
-  setUserDetails: undefined
+  setUserDetails: undefined,
 });
 
 export const useAboutMe = function () {
@@ -10,16 +10,16 @@ export const useAboutMe = function () {
 };
 
 export const AboutMeProvider = function ({ children }) {
-  let [userDetails, setUserDetails] = React.useState(undefined);
-  let value = {
+  const [userDetails, setUserDetails] = React.useState(undefined);
+  const value = useMemo(() => ({
     userDetails,
-    setUserDetails
-  };
+    setUserDetails,
+  }));
   return (
     <AboutMeContext.Provider value={value}>{children}</AboutMeContext.Provider>
   );
 };
 export default {
   useAboutMe,
-  AboutMeProvider
+  AboutMeProvider,
 };

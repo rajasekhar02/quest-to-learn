@@ -4,7 +4,7 @@ import CONSTANTS from "./constants.json";
 const castToPayload = function (graphqlQuery, variables = {}) {
   return {
     query: graphqlQuery,
-    variables
+    variables,
   };
 };
 const userQuery = `
@@ -33,25 +33,6 @@ query UserDetails($user_id:String!){
 }
 `;
 
-const contactQuery = `
-query ContactDetails($user_id: String!){
-    contact_details: contactCollection(where:{
-    user:{
-        sys:{
-        id:$user_id
-        }
-    },
-    }){
-        items {
-            email,
-            githubProfileLink,
-            linkedInProfileLink,
-            houseAddress,
-            phoneNumber
-        }
-    }
-}
-`;
 const educationDetails = `
 query EducationDetails($user_id: String!) {
   education_details: educationCollection(where: {user: {sys: {id: $user_id}}},order: [startDate_DESC]) {
@@ -64,11 +45,11 @@ query EducationDetails($user_id: String!) {
       educationSlug
       coursesEnrolledCollection{
         items {
-        	title,
+          title,
           courseDescription{
             json
           }
-      	}
+        }
       }
       specialization
     }
@@ -117,5 +98,5 @@ export const getExperienceDetails = async function () {
 };
 export default {
   getUserDetails,
-  getEducationDetails
+  getEducationDetails,
 };

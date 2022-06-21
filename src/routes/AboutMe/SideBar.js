@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
+import get from "lodash.get";
 import ProfilePicture from "./ProfilePicture";
 import { getUserDetails } from "./services";
 import { useAboutMe } from "./AboutMeContext";
-import get from "lodash.get";
 
 const renderHomeAddress = function (getPropertiesFromUserDetails) {
   return (
@@ -22,10 +22,11 @@ const renderHomeAddress = function (getPropertiesFromUserDetails) {
             ,
           </span>
           <div className="ms-4">
-            {getPropertiesFromUserDetails("contactDetails.houseAddress.city")},
+            {getPropertiesFromUserDetails("contactDetails.houseAddress.city")}
           </div>
           <div className="ms-4">
-            {getPropertiesFromUserDetails("contactDetails.houseAddress.state")}-
+            {getPropertiesFromUserDetails("contactDetails.houseAddress.state")}
+            -
             {getPropertiesFromUserDetails(
               "contactDetails.houseAddress.pinCode"
             )}
@@ -64,7 +65,8 @@ const renderEmail = function (getPropertiesFromUserDetails) {
         href={`mailto:${getPropertiesFromUserDetails("contactDetails.email")}`}
       >
         <i className="bi bi-envelope">
-          &nbsp; {getPropertiesFromUserDetails("contactDetails.email")}
+          &nbsp;
+          {getPropertiesFromUserDetails("contactDetails.email")}
         </i>
       </a>
     </li>
@@ -124,13 +126,14 @@ const renderSideNav = function (aboutMeContext) {
         <ProfilePicture />
       </div>
       <div className="name fs-4 fw-semibold">
-        {["firstName", "lastName"].reduce((acc, currKey, index) => {
-          return `${acc} ${get(
+        {["firstName", "lastName"].reduce(
+          (acc, currKey, index) => `${acc} ${get(
             aboutMeContext.userDetails,
             currKey,
             index === 0 ? "Loading..." : ""
-          )}`;
-        }, "")}
+          )}`,
+          ""
+        )}
       </div>
       <div className="work-motto mt-3">
         <figure className="text-center">
@@ -165,23 +168,23 @@ const renderSideNavPlaceholder = function () {
         <ProfilePicture />
       </div>
       <div className="name fs-4 fw-semibold">
-        <div className="placeholder col-3"></div>
-        <div className="placeholder ms-3 col-2"></div>
-        <div className="placeholder ms-3 col-2"></div>
+        <div className="placeholder col-3" />
+        <div className="placeholder ms-3 col-2" />
+        <div className="placeholder ms-3 col-2" />
       </div>
       <div className="work-motto mt-3">
         <figure className="text-center">
           <blockquote className="blockquote">
             <div className="fs-6">
-              <div className="placeholder col-3"></div>
-              <div className="ms-3 placeholder col-3"></div>
-              <div className="ms-3 placeholder col-3"></div>
-              <div className="ms-3 placeholder col-2"></div>
-              <div className="ms-2 placeholder col-2"></div>
+              <div className="placeholder col-3" />
+              <div className="ms-3 placeholder col-3" />
+              <div className="ms-3 placeholder col-3" />
+              <div className="ms-3 placeholder col-2" />
+              <div className="ms-2 placeholder col-2" />
             </div>
           </blockquote>
           <figcaption className="blockquote-footer">
-            <div className="placeholder col-3"></div>
+            <div className="placeholder col-3" />
           </figcaption>
         </figure>
       </div>
@@ -190,34 +193,32 @@ const renderSideNavPlaceholder = function () {
           <li className="list-group-item fw-semibold text-center">Contact</li>
           <li className="list-group-item">
             <address>
-              <i className="bi bi-geo-alt-fill"></i>
-              <span className="placeholder ms-2 col-4"></span>
+              <i className="bi bi-geo-alt-fill" />
+              <span className="placeholder ms-2 col-4" />
               {Array(4)
                 .fill(1)
-                .map((value, lineIndex) => {
-                  return (
-                    <div
-                      className={`placeholder ms-4 col-${lineIndex + 1}`}
-                      key={lineIndex}
-                    ></div>
-                  );
-                })}
+                .map((value, lineIndex) => (
+                  <div
+                    className={`placeholder ms-4 col-${lineIndex + 1}`}
+                    key={lineIndex}
+                  />
+                ))}
             </address>
           </li>
           {[
             "bi bi-phone",
             "bi bi-envelope",
             "bi bi-github",
-            "bi bi-linkedin"
-          ].map((iconName) => {
-            return (
-              <li className="list-group-item" key={iconName}>
-                <i className={iconName}>
-                  &nbsp; <div className="placeholder col-7"></div>
-                </i>
-              </li>
-            );
-          })}
+            "bi bi-linkedin",
+          ].map((iconName) => (
+            <li className="list-group-item" key={iconName}>
+              <i className={iconName}>
+                &nbsp;
+                {' '}
+                <div className="placeholder col-7" />
+              </i>
+            </li>
+          ))}
         </ul>
       </div>
     </>
@@ -231,7 +232,6 @@ export default function SideBar() {
     (async () => {
       const response = await getUserDetails();
       aboutMeContext.setUserDetails(response);
-      console.log(response);
     })();
   }, []);
   return (

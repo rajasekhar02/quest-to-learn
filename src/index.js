@@ -1,64 +1,37 @@
-import React, { StrictMode } from "react";
+import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { ProjectsProvider } from "routes/Projects/ProjectsContext";
 import App from "./App";
-import AboutMe from "./routes/AboutMe/index.js";
+import AboutMe from "./routes/AboutMe/index";
 import LearningReferences from "./routes/LearningReferences";
-import Projects from "./routes/Projects/index.js";
+import Projects from "./routes/Projects/index";
 import ProjectGrids from "./routes/Projects/ProjectGrids";
-import Splitwise from "./routes/Projects/Splitwise";
-import RedirectHandler from "./routes/Projects/Splitwise/RedirectHandler";
-import AuthHandler from "./routes/Projects/AuthHandler";
-import { AuthProvider } from "./routes/Projects/AuthContext";
-import Dashboard from "./routes/Projects/Splitwise/Dashboard";
-import ExepensesTable from "routes/Projects/Splitwise/routes/ExpensesTable";
+import Splitwise from "./routes/Projects/Splitwise/index";
+
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 root.render(
-  // <StrictMode>
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
-        <Route index element={<AboutMe />}></Route>
+        <Route index element={<AboutMe />} />
         <Route path="about-me" element={<AboutMe />}>
           <Route path=":string_slug" element={<AboutMe />} />
         </Route>
         <Route
           path="projects"
-          element={
-            <AuthProvider>
+          element={(
+            <ProjectsProvider>
               <Projects />
-            </AuthProvider>
-          }
+            </ProjectsProvider>
+          )}
         >
-          <Route index element={<ProjectGrids />}></Route>
-          <Route path="splitwise" element={<Splitwise />}>
-            <Route path="redirect" element={<RedirectHandler />}></Route>
-            <Route
-              path="dashboard"
-              element={
-                <AuthHandler>
-                  <Dashboard />
-                </AuthHandler>
-              }
-            ></Route>
-            <Route
-              path="expenses-table"
-              element={
-                <AuthHandler>
-                  <ExepensesTable />
-                </AuthHandler>
-              }
-            ></Route>
-          </Route>
+          <Route index element={<ProjectGrids />} />
+          <Route path="splitwise/*" element={<Splitwise />} />
         </Route>
-        <Route
-          path="learning-references"
-          element={<LearningReferences />}
-        ></Route>
+        <Route path="learning-references" element={<LearningReferences />} />
       </Route>
     </Routes>
   </BrowserRouter>
-  // </StrictMode>
 );

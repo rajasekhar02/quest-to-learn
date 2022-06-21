@@ -13,5 +13,5 @@ const deleteDataWith = function (key) {
 export default {
   getData,
   setData,
-  deleteDataWith
+  deleteDataWith,
 };
