@@ -1,0 +1,61 @@
+[
+    {
+        "description": "Laxmi Kabuli Chana 4lb",
+        "quantity": 1,
+        "unitPrice": 6.99,
+        "price": 6.99
+    },
+    {
+        "description": "Swagat Sona Masoori Rice 20lb",
+        "quantity": 4,
+        "unitPrice": 18.99,
+        "price": 75.96
+    },
+    {
+        "description": "Kolhapuri Jaggery 500g",
+        "quantity": 1,
+        "unitPrice": 1.99,
+        "price": 1.99
+    },
+    {
+        "description": "LAXMI GINGER GARLIC PASTE 710ML",
+        "quantity": 1,
+        "unitPrice": 4.99,
+        "price": 4.99
+    },
+    {
+        "description": "UDUPI RAGI FLOUR 2LBS",
+        "quantity": 1,
+        "unitPrice": 3.79,
+        "price": 3.79
+    },
+    {
+        "description": "LIME (GREEN) BY COUNT",
+        "quantity": 12,
+        "unitPrice": 0.3,
+        "price": 3.6
+    },
+    {
+        "description": "Savorit Vermicelli 900 Gm",
+        "quantity": 1,
+        "unitPrice": 2.79,
+        "price": 2.79
+    },
+    {
+        "description": "Curry Leaves",
+        "quantity": 1,
+        "unitPrice": 2,
+        "price": 2
+    },
+    {
+        "description": "DOSA BATTER 900ML",
+        "quantity": 1,
+        "unitPrice": 3.99,
+        "price": 3.99
+    },
+    {
+        "shipping": 0,
+        "tax": 6.21,
+        "total": 112.31
+    }
+]
