@@ -1,11 +1,10 @@
-import get from "lodash.get";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import localStore from "../../../utils/localStore";
-import CONSTANTS from "./constants.json";
-import { useAuth } from "../AuthContext";
-import { getCurrentUserGroups } from "./services";
-import { useSplitwise } from "./SplitwiseContext";
+import localStore from "utils/localStore";
+import { useAuth } from "routes/Projects/AuthContext";
+import CONSTANTS from "../constants.json";
+import { getCurrentUserGroups } from "../services";
+import { useSplitwise } from "../SplitwiseContext";
 
 const callGetCurrentUserGroups = async function (splitwise) {
   let response;
@@ -21,7 +20,7 @@ const profileForm = function (authContext) {
   let profileFormEle = <div>Profile</div>;
   if (authContext.user) {
     profileFormEle = (
-      <div className="col-3">
+      <div className="col-6">
         <h3>Profile</h3>
         <div className="mb-3">
           <label className="form-label" htmlFor="email">
@@ -81,90 +80,6 @@ const profileForm = function (authContext) {
   return profileFormEle;
 };
 
-const expensesTable = function (
-  expenses,
-  params,
-  authContext,
-  splitwiseContext
-) {
-  const properties = [
-    "#",
-    "created_at",
-    "description",
-    "users involved",
-    "paid_shares",
-    "owed_shares",
-    "net_balance",
-    "cost",
-    "comments_count",
-    "created_by",
-  ];
-  const selectedMemberId = params.get("memberId") || authContext.user?.id;
-
-  return (
-    <div className="col">
-      <pre>
-        Trasactions&nbsp;
-        <strong>
-          {get(
-            splitwiseContext.indexOnUsersInGroups,
-            `${selectedMemberId}.first_name`
-          )}
-        </strong>
-        &nbsp;is involved
-      </pre>
-
-      <table className="table">
-        <thead>
-          <tr>
-            {properties.map((eachProperty, eachPropertyIndex) => (
-              <th key={`expense_header_key_${eachPropertyIndex}`}>
-                {eachProperty.replace("_", " ").toLocaleUpperCase()}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {expenses.map((eachExpense, indexExpense) => (
-            <tr key={`expense_${indexExpense}`}>
-              <th scope="row">{indexExpense + 1}</th>
-              {[
-                "created_at",
-                "description",
-                // "payment",
-                eachExpense.users.map(
-                  (x, index) => `users.${index}.user.first_name`
-                ),
-                eachExpense.users.map(
-                  (x, index) => `users.${index}.paid_share`
-                ),
-                eachExpense.users.map(
-                  (x, index) => `users.${index}.owed_share`
-                ),
-                eachExpense.users.map(
-                  (x, index) => `users.${index}.net_balance`
-                ),
-                // "users",
-                "cost",
-                "comments_count",
-                // "repayments",
-                "created_by.first_name",
-              ].map((eachKey, eachKeyIndex) => (
-                <td key={`expense_key_${eachKeyIndex}`}>
-                  {Array.isArray(eachKey)
-                    ? eachKey
-                      .map((eachNestKey) => get(eachExpense, eachNestKey))
-                      .join(",")
-                    : get(eachExpense, eachKey)}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-};
 const groupsCollapseItem = function (splitwiseContext, params) {
   const [selectedCollapse, setSelectedCollapse] = useState(
     params.get("groupId") || 0
@@ -173,7 +88,7 @@ const groupsCollapseItem = function (splitwiseContext, params) {
     setSelectedCollapse(selectedIndex);
   }
   return (
-    <div className="col-3 mx-2">
+    <div className="col-6 mx-2">
       <h3>Groups</h3>
       <div className="d-flex">
         {splitwiseContext.groups?.map((group, index) => (
@@ -217,7 +132,6 @@ export default function Dashboard() {
   const auth = useAuth();
   const splitwise = useSplitwise();
   const [params] = useSearchParams();
-  const [expenses] = useState([]);
   useEffect(() => {
     (async () => {
       await callGetCurrentUserGroups(splitwise);
@@ -235,12 +149,9 @@ export default function Dashboard() {
     );
   }, [splitwise.groups]);
   return (
-    // <AuthHandler>
     <div className="d-flex">
       {profileForm(auth)}
       {groupsCollapseItem(splitwise, params)}
-      {expensesTable(expenses, params, auth, splitwise)}
-      {/* </AuthHandler> */}
     </div>
   );
 }

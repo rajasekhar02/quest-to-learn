@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Tooltip } from "bootstrap";
+import { NavLink } from "react-router-dom";
 // const handleOnMouseOver = function (event) {
 //   event.stopPropagation();
 //   console.log(event.target);
@@ -24,9 +25,11 @@ export default function SideNav() {
       style={{ width: "4.5rem" }}
       ref={sideNavRef}
     >
-      <a
-        href="./dashboard"
-        className="d-block p-3 link-dark text-decoration-none text-center"
+      <NavLink
+        to="./dashboard"
+        className={({ isActive }) => `d-block p-3 link-dark text-decoration-none text-center ${
+          isActive && "active"
+        }`}
         title=""
         data-bs-toggle="tooltip"
         data-bs-placement="right"
@@ -40,12 +43,12 @@ export default function SideNav() {
           src="https://avatars.githubusercontent.com/u/1584483?s=24&v=4"
         />
         <span className="visually-hidden">Icon-only</span>
-      </a>
+      </NavLink>
       <ul className="nav nav-pills nav-flush flex-column mb-auto text-center">
         <li className="nav-item">
-          <a
-            href="/"
-            className="nav-link active py-3 border-bottom"
+          <NavLink
+            to="home"
+            className={({ isActive }) => `nav-link py-3 border-bottom ${isActive && "active"}`}
             aria-current="page"
             title="Home"
             data-bs-toggle="tooltip"
@@ -53,43 +56,43 @@ export default function SideNav() {
             data-bs-original-title="Home"
           >
             <i className="bi bi-house fs-4" />
-          </a>
+          </NavLink>
         </li>
         <li>
-          <a
-            href="/"
-            className="nav-link py-3 border-bottom"
+          <NavLink
+            to="dashboard"
+            className={({ isActive }) => `nav-link py-3 border-bottom ${isActive && "active"}`}
             title="Dashboard"
             data-bs-toggle="tooltip"
             data-bs-placement="right"
             data-bs-original-title="Dashboard"
           >
             <i className="bi bi-speedometer2 fs-4" />
-          </a>
+          </NavLink>
         </li>
         <li>
-          <a
-            href="./expenses-table"
-            className="nav-link py-3 border-bottom"
-            title="Orders"
+          <NavLink
+            to="expenses"
+            className={({ isActive }) => `nav-link py-3 border-bottom ${isActive && "active"}`}
+            title="Expenses"
             data-bs-toggle="tooltip"
             data-bs-placement="right"
-            data-bs-original-title="Orders"
+            data-bs-original-title="Expenses"
           >
             <i className="bi bi-table fs-4" />
-          </a>
+          </NavLink>
         </li>
         <li>
-          <a
-            href="/"
-            className="nav-link py-3 border-bottom"
-            title="Products"
+          <NavLink
+            to="splitshare-calculator"
+            className={({ isActive }) => `nav-link py-3 border-bottom ${isActive && "active"}`}
+            title="Share Calculator"
             data-bs-toggle="tooltip"
             data-bs-placement="right"
-            data-bs-original-title="Products"
+            data-bs-original-title="Share Calculator"
           >
             <i className="bi bi-grid fs-4" />
-          </a>
+          </NavLink>
         </li>
       </ul>
     </div>

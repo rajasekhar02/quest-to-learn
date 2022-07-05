@@ -15,7 +15,7 @@ export default function Splitwise() {
         <aside className="ms-n3 mt-n3 mb-auto">
           <SideNav />
         </aside>
-        <main className="ms-3">
+        <main className="ms-3 flex-fill">
           <Outlet />
         </main>
       </SplitwiseContextProvider>

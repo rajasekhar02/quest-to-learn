@@ -23,6 +23,7 @@ module.exports = {
     },
   },
   rules: {
+    "no-unused-vars": "warn",
     "jsx-a11y/label-has-associated-control": [
       "error",
       {
@@ -45,7 +46,7 @@ module.exports = {
         extensions: [".js", ".jsx"],
       },
     ],
-    "no-console": ["error", { allow: ["warn", "error"] }],
+    "no-console": ["warn", { allow: ["warn", "error"] }],
     "react/no-array-index-key": 0,
     "max-len": 0,
     "no-param-reassign": 0,
