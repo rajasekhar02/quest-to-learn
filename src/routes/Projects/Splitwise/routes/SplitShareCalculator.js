@@ -9,6 +9,7 @@ import React, { useState } from "react";
 export default function SplitShareCalculator() {
   const [parsedItems, setParsedItems] = useState([]);
   const [totalAndTax, setTotalAndTax] = useState({});
+  const [viewType, setViewType] = useState("textarea_table");
   const handleTextAreaChange = function (eventItem) {
     try {
       const items = JSON.parse(eventItem.target.value);
@@ -18,6 +19,9 @@ export default function SplitShareCalculator() {
       console.error("provided valid json object");
     }
     // console.log(JSON.parse(eventItem.target.value));
+  };
+  const handleSetView = function (selectedViewType) {
+    setViewType(selectedViewType);
   };
   const columns = [
     {
@@ -30,19 +34,19 @@ export default function SplitShareCalculator() {
       id: "description",
       accessorKey: "description",
       header: "Description",
-      footer: (footerContext) => `Shipping: ${footerContext.shipping || 0}`,
+      footer: () => ``,
     },
     {
       id: "quantity",
       accessorKey: "quantity",
       header: "Quantity",
-      footer: (footerContext) => `Tax: ${footerContext.tax || 0}`,
+      footer: (footerContext) => `Shipping: ${footerContext.shipping || 0}`,
     },
     {
       id: "unit_price",
       accessorKey: "unitPrice",
       header: "Unit Price",
-      footer: () => ``,
+      footer: (footerContext) => `Tax: ${footerContext.tax || 0}`,
     },
     {
       id: "price",
@@ -59,7 +63,32 @@ export default function SplitShareCalculator() {
   });
   return (
     <div className="row">
-      <div className="form col-6">
+      <ul className="nav nav-pills nav-fill">
+        <li className="nav-item">
+          <button
+            type="button"
+            className={`nav-link ${viewType === "textarea_table" && "active"}`}
+            onClick={() => handleSetView("textarea_table")}
+          >
+            Table and JSON Input
+          </button>
+        </li>
+        <li className="nav-item">
+          <button
+            type="button"
+            className={`nav-link ${viewType === "table" && "active"}`}
+            onClick={() => handleSetView("table")}
+          >
+            Table
+          </button>
+        </li>
+      </ul>
+
+      <div
+        className={`form col-6 ${
+          viewType === "textarea_table" ? "col-6" : "d-none"
+        }`}
+      >
         <label htmlFor="floatingTextarea">Receipt JSON</label>
         <textarea
           className="form-control"
@@ -69,7 +98,11 @@ export default function SplitShareCalculator() {
           onChange={handleTextAreaChange}
         />
       </div>
-      <div className="col-6">
+      <div
+        className={`col-6 ${
+          viewType === "textarea_table" ? "col-6" : "col-12"
+        }`}
+      >
         <table className="table">
           <thead>
             <tr>
@@ -82,7 +115,19 @@ export default function SplitShareCalculator() {
             {table.getRowModel().rows.map((row) => (
               <tr key={row.id}>
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id}>
+                  <td
+                    key={cell.id}
+                    className="text-nowrap"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-custom-class="custom-tooltip"
+                    title={cell.getValue()}
+                    style={{
+                      maxWidth: "200px",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
